@@ -46,8 +46,7 @@ QUERY = """select id, publication_start_date,
                 date_end_5 >= NOW() or 
                 date_end_6 >= NOW() or
                 date_end_7 >= NOW()
-               ) or (date >= NOW() or
-               date_1 >= NOW() or
+               ) or (date >= NOW() or            
                date_2 >= NOW() or
                date_3 >= NOW() or
                date_4 >= NOW() or
@@ -86,28 +85,30 @@ def extract_data(orientations):
     for orientation in orientations:
         # unpack data
         id, publication_start_date, \
-          date_1, date_end_1, limit_1, publication_status_1, is_accept_reservation_1, reserve_start_1, reserve_end_1, \
-          date_2, date_end_2, limit_2, publication_status_2, is_accept_reservation_2, reserve_start_2, reserve_end_2, \
-          date_3, date_end_3, limit_3, publication_status_3, is_accept_reservation_3, reserve_start_3, reserve_end_3, \
-          date_4, date_end_4, limit_4, publication_status_4, is_accept_reservation_4, reserve_start_4, reserve_end_4, \
-          date_5, date_end_5, limit_5, publication_status_5, is_accept_reservation_5, reserve_start_5, reserve_end_5, \
-          date_6, date_end_6, limit_6, publication_status_6, is_accept_reservation_6, reserve_start_6, reserve_end_6, \
-          date_7, date_end_7, limit_7, publication_status_7, is_accept_reservation_7, reserve_start_7, reserve_end_7 = orientation
+        date_1, date_end_1, limit_1, publication_status_1, is_accept_reservation_1, reserve_start_1, reserve_end_1, \
+        date_2, date_end_2, limit_2, publication_status_2, is_accept_reservation_2, reserve_start_2, reserve_end_2, \
+        date_3, date_end_3, limit_3, publication_status_3, is_accept_reservation_3, reserve_start_3, reserve_end_3, \
+        date_4, date_end_4, limit_4, publication_status_4, is_accept_reservation_4, reserve_start_4, reserve_end_4, \
+        date_5, date_end_5, limit_5, publication_status_5, is_accept_reservation_5, reserve_start_5, reserve_end_5, \
+        date_6, date_end_6, limit_6, publication_status_6, is_accept_reservation_6, reserve_start_6, reserve_end_6, \
+        date_7, date_end_7, limit_7, publication_status_7, is_accept_reservation_7, reserve_start_7, reserve_end_7 = orientation
 
         result_date = []
-        get_date(id, publication_start_date, reserve_start_1, reserve_end_1, date_1, is_accept_reservation_1, \
+
+        # tra ve date_data cua tung orientation, gom
+        get_date(id, publication_start_date, reserve_start_1, reserve_end_1, date_1, date_end_1, is_accept_reservation_1, \
             publication_status_1, limit_1, 1, reserved_data, date_now, result_date)
-        get_date(id, publication_start_date, reserve_start_2, reserve_end_2, date_2, is_accept_reservation_2, \
+        get_date(id, publication_start_date, reserve_start_2, reserve_end_2, date_2, date_end_2, is_accept_reservation_2, \
             publication_status_2, limit_2, 2, reserved_data, date_now, result_date)
-        get_date(id, publication_start_date, reserve_start_3, reserve_end_3, date_3, is_accept_reservation_3, \
+        get_date(id, publication_start_date, reserve_start_3, reserve_end_3, date_3, date_end_3, is_accept_reservation_3, \
             publication_status_3, limit_3, 3, reserved_data, date_now, result_date)
-        get_date(id, publication_start_date, reserve_start_4, reserve_end_4, date_4, is_accept_reservation_4, \
+        get_date(id, publication_start_date, reserve_start_4, reserve_end_4, date_4, date_end_4, is_accept_reservation_4, \
             publication_status_4, limit_4, 4, reserved_data, date_now, result_date)
-        get_date(id, publication_start_date, reserve_start_5, reserve_end_5, date_5, is_accept_reservation_5, \
+        get_date(id, publication_start_date, reserve_start_5, reserve_end_5, date_5, date_end_5, is_accept_reservation_5, \
             publication_status_5, limit_5, 5, reserved_data, date_now, result_date)
-        get_date(id, publication_start_date, reserve_start_6, reserve_end_6, date_6, is_accept_reservation_6, \
+        get_date(id, publication_start_date, reserve_start_6, reserve_end_6, date_6, date_end_6, is_accept_reservation_6, \
             publication_status_6, limit_6, 6, reserved_data, date_now, result_date)
-        get_date(id, publication_start_date, reserve_start_7, reserve_end_7, date_7, is_accept_reservation_7, \
+        get_date(id, publication_start_date, reserve_start_7, reserve_end_7, date_7, date_end_7, is_accept_reservation_7, \
             publication_status_7, limit_7, 7, reserved_data, date_now, result_date)
 
         is_active = any([x['is_active'] for x in result_date])
@@ -161,7 +162,7 @@ def group_data(data):
             result.append(g[0])
     return result
 
-
+#danh so ngay : tra ve id so ngay, ngay
 def ranger_date_index(id, date_data, date_now):
     result = []
 
